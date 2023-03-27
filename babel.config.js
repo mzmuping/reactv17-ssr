@@ -15,5 +15,14 @@ module.exports = function (api) {
       ],
       "@babel/preset-react",
     ],
+    plugins: [
+      [
+        "import",
+        {
+          libraryName: "antd",
+          style: true,
+        },
+      ],
+    ],
   };
 };

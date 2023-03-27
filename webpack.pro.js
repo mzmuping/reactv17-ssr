@@ -1,4 +1,3 @@
-const dev = false;
 const path = require("path");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
@@ -9,34 +8,46 @@ const plugins = [
   new MiniCssExtractPlugin({
     filename: "styles.css",
   }),
+  new BundleAnalyzerPlugin({
+    analyzerMode: "static",
+    reportFilename: "webpack-report.html",
+    openAnalyzer: false,
+  }),
 ];
 
-if (!dev) {
-  plugins.push(
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "webpack-report.html",
-      openAnalyzer: false,
-    })
-  );
-}
-
 module.exports = {
-  mode: dev ? "development" : "production",
+  mode: "production",
   context: path.join(__dirname, "src"),
-  devtool: dev ? "none" : "source-map",
+  devtool: "source-map",
   entry: {
     app: "./client.js",
   },
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name].bundle.js",
+    clean: true,
+  },
   resolve: {
+    extensions: [".js", ".json", ".jsx"],
     modules: [path.resolve("./src"), "node_modules"],
+    alias: {
+      "@src": path.resolve(__dirname, "src"),
+      "@utils": path.resolve(__dirname, "src/utils"),
+    },
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
+        // loader: "babel-loader",
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: ["@babel/plugin-transform-runtime"],
+          },
+        },
       },
       {
         test: /\.(css|less)$/,
@@ -57,9 +68,6 @@ module.exports = {
       },
     ],
   },
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].bundle.js",
-  },
+
   plugins,
 };
