@@ -65,6 +65,20 @@ function htmlTemplate(reactDom, reduxState, helmetData) {
             <script>
                 window.REDUX_DATA = ${serialize(reduxState, { isJSON: true })}
             </script>
+            <script>
+              function changesize() {
+                console.log('changesize=====')
+                let designsize = 192;
+                let html = document.documentElement;
+                let clientw = html.clientWidth;
+                let htmlRem = clientw / designsize;
+                html.style.fontSize = htmlRem + "px";
+                document.body.style.fontSize = htmlRem + "px";
+              }
+             // setTimeout(() => {changesize()}, 0);
+              //window.addEventListener("load", changesize);
+              //window.addEventListener("resize", changesize);
+            </script>
             <script src="./app.bundle.js"></script>
         </body>
         </html>
