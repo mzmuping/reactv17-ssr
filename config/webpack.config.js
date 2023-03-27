@@ -1,27 +1,23 @@
 const path = require("path");
-const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-const plugins = [
-  new FriendlyErrorsWebpackPlugin(),
-  new MiniCssExtractPlugin({
-    filename: "styles.css",
-  }),
-];
-
+const { getPlugins } = require("./tools");
+const plugins = getPlugins();
 module.exports = {
-  mode: "development",
-  context: path.join(__dirname, "src"),
-  // devtool: "none",
+  context: path.join(__dirname, "../src"),
   entry: {
     app: "./client.js",
   },
+  output: {
+    path: path.resolve(__dirname, "../dist"),
+    filename: "[name].bundle.js",
+    clean: true,
+  },
   resolve: {
     extensions: [".js", ".json", ".jsx"],
-    modules: [path.resolve("./src"), "node_modules"],
+    modules: [path.resolve("../src"), "node_modules"],
     alias: {
-      "@src": path.resolve(__dirname, "src"),
-      "@utils": path.resolve(__dirname, "src/utils"),
+      "@src": path.resolve(__dirname, "../src"),
+      "@utils": path.resolve(__dirname, "../src/utils"),
     },
   },
   module: {
@@ -56,10 +52,6 @@ module.exports = {
         },
       },
     ],
-  },
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].bundle.js",
   },
   plugins,
 };
