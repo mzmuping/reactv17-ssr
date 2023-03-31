@@ -7,15 +7,16 @@ import Layout from "./components/Layout";
 import createStore from "./store";
 import "./App.css";
 
-const store = createStore( window.REDUX_DATA );
+const store = createStore(window.REDUX_DATA);
+console.log("process.env.NODE_ENV===", window);
 
 const jsx = (
-    <ReduxProvider store={ store }>
-        <Router>
-            <Layout />
-        </Router>
-    </ReduxProvider>
+  <ReduxProvider store={store}>
+    <Router>
+      <Layout />
+    </Router>
+  </ReduxProvider>
 );
 
-const app = document.getElementById( "app" );
-ReactDOM.hydrate( jsx, app );
+const app = document.getElementById("app");
+ReactDOM.hydrate(jsx, app);

@@ -2,6 +2,7 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { getPlugins } = require("./tools");
 const plugins = getPlugins();
+console.log("process.env.NODE_ENV===", process.env.APP_URL);
 module.exports = {
   context: path.join(__dirname, "../src"),
   entry: {

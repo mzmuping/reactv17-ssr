@@ -12,6 +12,7 @@ import Layout from "./components/Layout";
 import createStore, { initializeSession } from "./store";
 
 const app = express();
+console.log("process.env.NODE_ENV===", process.env.APP_URL);
 
 app.use(express.static(path.resolve(__dirname, "../dist")));
 

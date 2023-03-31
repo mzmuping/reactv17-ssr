@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
-    "build:test": "cross-env NODE_ENV=production webpack --config config/webpack.pro.js --progress",
-    "build": "cross-env NODE_ENV=production webpack  --config config/webpack.pro.js --progress",
-    "start": "pm2 start ecosystem.config.js",
+    "build:test": "dotenv -e env/.pro.env -- webpack --config config/webpack.pro.js --progress",
+    "build": "dotenv -e env/.pro.env -- webpack  --config config/webpack.pro.js --progress",
+    "start": "dotenv -e env/.pro.env -- pm2 start ecosystem.config.js",
     "dev": "npm-run-all --parallel server client",
-    "server": "nodemon index.js",
-    "client": "webpack --config config/webpack.dev.js --watch --progress",
+    "server": "dotenv -e env/.pro.env -- nodemon index.js",
+    "client": "dotenv -e env/.dev.env -- webpack --config config/webpack.dev.js --watch --progress",
     "linter": "eslint src"
   },
   "license": "MIT",
